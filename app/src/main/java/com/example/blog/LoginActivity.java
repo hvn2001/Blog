@@ -5,6 +5,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -17,6 +18,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextInputLayout textUsernameLayout;
     private TextInputLayout textPasswordInput;
     private Button loginButton;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
         // loginButton.setOnClickListener(v -> onLoginClicked());
+        progressBar = findViewById(R.id.progressBar);
 
         textUsernameLayout
                 .getEditText()
@@ -73,7 +76,16 @@ public class LoginActivity extends AppCompatActivity {
             textPasswordInput.setError("Password must not be empty");
         } else if (!username.equals("admin") && !password.equals("admin")) {
             showErrorDialog();
+        } else {
+            performLogin();
         }
+    }
+
+    private void performLogin() {
+        textUsernameLayout.setEnabled(false);
+        textPasswordInput.setEnabled(false);
+        loginButton.setVisibility(View.INVISIBLE);
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     private void showErrorDialog() {
