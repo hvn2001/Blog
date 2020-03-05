@@ -12,7 +12,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TextView mainTextView = findViewById(R.id.mainTextView);
+        TextView mainTextView = findViewById(R.id.mainTextView2);
         mainTextView.setText("Hello educative.io");
     }
 }
