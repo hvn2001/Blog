@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -70,6 +71,16 @@ public class LoginActivity extends AppCompatActivity {
             textUsernameLayout.setError("Username must not be empty");
         } else if (password.isEmpty()) {
             textPasswordInput.setError("Password must not be empty");
+        } else if (!username.equals("admin") && !password.equals("admin")) {
+            showErrorDialog();
         }
+    }
+
+    private void showErrorDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle("Login Failed")
+                .setMessage("Username or password is not correct. Please try again.")
+                .setPositiveButton("OK", (dialog, which) -> dialog.dismiss())
+                .show();
     }
 }
