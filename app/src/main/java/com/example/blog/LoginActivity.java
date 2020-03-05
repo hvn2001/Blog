@@ -1,6 +1,8 @@
 package com.example.blog;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 
@@ -30,6 +32,35 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
         // loginButton.setOnClickListener(v -> onLoginClicked());
+
+        textUsernameLayout
+                .getEditText()
+                .addTextChangedListener(createTextWatcher(textUsernameLayout));
+
+        textPasswordInput
+                .getEditText()
+                .addTextChangedListener(createTextWatcher(textPasswordInput));
+    }
+
+    private TextWatcher createTextWatcher(TextInputLayout textPasswordInput) {
+        return new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s,
+                                          int start, int count, int after) {
+                // not needed
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s,
+                                      int start, int before, int count) {
+                textPasswordInput.setError(null);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // not needed
+            }
+        };
     }
 
     private void onLoginClicked() {
