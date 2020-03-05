@@ -42,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
                 .addTextChangedListener(createTextWatcher(textPasswordInput));
     }
 
-    private TextWatcher createTextWatcher(TextInputLayout textPasswordInput) {
+    private TextWatcher createTextWatcher(final TextInputLayout textInput) {
         return new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s,
@@ -53,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s,
                                       int start, int before, int count) {
-                textPasswordInput.setError(null);
+                textInput.setError(null);
             }
 
             @Override
