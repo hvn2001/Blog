@@ -16,10 +16,9 @@ import okhttp3.ResponseBody;
 public class BlogHttpClient {
     public static final BlogHttpClient INSTANCE = new BlogHttpClient();
 
-    private static final String BASE_URL =
-            "https://bitbucket.org/dmytrodanylyk/travel-blog-resources/raw/";
-    private static final String BLOG_ARTICLES_URL =
-            BASE_URL + "647f4270e4271fbff28f1d80e2f2d12b3bd4a1cd/blog_articles.json";
+    public static final String BASE_URL = "https://bitbucket.org/dmytrodanylyk/travel-blog-resources";
+    public static final String PATH = "/raw/3eede691af3e8ff795bf6d31effb873d484877be";
+    private static final String BLOG_ARTICLES_URL = BASE_URL + PATH + "/blog_articles.json";
 
     private Executor executor;
     private OkHttpClient client;

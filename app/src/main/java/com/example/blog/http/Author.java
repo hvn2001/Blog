@@ -12,4 +12,8 @@ public class Author {
     public String getAvatar() {
         return avatar;
     }
+
+    public String getAvatarURL() {
+        return BlogHttpClient.BASE_URL + BlogHttpClient.PATH + getAvatar();
+    }
 }
