@@ -19,7 +19,7 @@ public class BlogHttpClient {
     private static final String BASE_URL =
             "https://bitbucket.org/dmytrodanylyk/travel-blog-resources/raw/";
     private static final String BLOG_ARTICLES_URL =
-            BASE_URL + "8550ef2064bf14fcf3b9ff322287a2e056c7e153/blog_articles.json";
+            BASE_URL + "647f4270e4271fbff28f1d80e2f2d12b3bd4a1cd/blog_articles.json";
 
     private Executor executor;
     private OkHttpClient client;

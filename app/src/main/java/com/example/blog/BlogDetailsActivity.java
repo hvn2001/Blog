@@ -1,6 +1,7 @@
 package com.example.blog;
 
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -95,7 +96,7 @@ public class BlogDetailsActivity extends AppCompatActivity {
         textAuthor.setText(blog.getAuthor().getName());
         textRating.setText(String.valueOf(blog.getRating()));
         textViews.setText(String.format("(%d views)", blog.getViews()));
-        textDescription.setText(blog.getDescription());
+        textDescription.setText(Html.fromHtml(blog.getDescription()));
         ratingBar.setRating(blog.getRating());
 
         Glide.with(this)
