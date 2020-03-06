@@ -16,6 +16,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.example.blog.http.Blog;
 import com.example.blog.http.BlogArticlesCallback;
 import com.example.blog.http.BlogHttpClient;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
@@ -70,9 +71,21 @@ public class BlogDetailsActivity extends AppCompatActivity {
 
             @Override
             public void onError() {
-                // handle error
+                runOnUiThread(() -> showErrorSnackbar());
             }
         });
+    }
+
+    private void showErrorSnackbar() {
+        View rootView = findViewById(android.R.id.content);
+        Snackbar snackbar = Snackbar.make(rootView,
+                "Error during loading blog articles", Snackbar.LENGTH_INDEFINITE);
+        snackbar.setActionTextColor(getResources().getColor(R.color.orange500));
+        snackbar.setAction("Retry", v -> {
+            loadData();
+            snackbar.dismiss();
+        });
+        snackbar.show();
     }
 
     private void showData(Blog blog) {
