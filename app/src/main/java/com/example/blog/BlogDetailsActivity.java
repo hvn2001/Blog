@@ -1,7 +1,9 @@
 package com.example.blog;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -28,6 +30,7 @@ public class BlogDetailsActivity extends AppCompatActivity {
     private RatingBar ratingBar;
     private ImageView imageAvatar;
     private ImageView imageMain;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,6 +48,7 @@ public class BlogDetailsActivity extends AppCompatActivity {
         textViews = findViewById(R.id.textViews);
         textDescription = findViewById(R.id.textDescription);
         ratingBar = findViewById(R.id.ratingBar);
+        progressBar = findViewById(R.id.progressBar);
         // Image with the back icon
         ImageView imageBack = findViewById(R.id.imageBack);
         imageBack.setOnClickListener(v -> finish());
@@ -72,6 +76,7 @@ public class BlogDetailsActivity extends AppCompatActivity {
     }
 
     private void showData(Blog blog) {
+        progressBar.setVisibility(View.GONE);
         textTitle.setText(blog.getTitle());
         textDate.setText(blog.getDate());
         textAuthor.setText(blog.getAuthor().getName());
