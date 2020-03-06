@@ -2,6 +2,7 @@ package com.example.blog;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -14,5 +15,7 @@ public class MainActivity extends AppCompatActivity {
 
         TextView mainTextView = findViewById(R.id.mainTextView2);
         mainTextView.setText("Hello educative.io");
+
+        startActivity(new Intent(this, BlogDetailsActivity.class));
     }
 }
