@@ -9,6 +9,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 
 public class BlogDetailsActivity extends AppCompatActivity {
 
@@ -29,6 +31,7 @@ public class BlogDetailsActivity extends AppCompatActivity {
         // imageMain.setImageResource(R.drawable.sydney_image);
         Glide.with(this)
                 .load(IMAGE_URL)
+                .transition(DrawableTransitionOptions.withCrossFade())
                 .into(imageMain);
 
 
@@ -36,6 +39,8 @@ public class BlogDetailsActivity extends AppCompatActivity {
         // imageAvatar.setImageResource(R.drawable.avatar);
         Glide.with(this)
                 .load(AVATAR_URL)
+                .transform(new CircleCrop())
+                .transition(DrawableTransitionOptions.withCrossFade())
                 .into(imageAvatar);
 
         TextView textTitle = findViewById(R.id.textTitle);
