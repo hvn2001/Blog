@@ -1,13 +1,16 @@
 package com.example.blog;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.example.blog.adapter.MainAdapter;
@@ -52,6 +55,21 @@ public class MainActivity extends AppCompatActivity {
         refreshLayout = findViewById(R.id.refresh);
         refreshLayout.setOnRefreshListener(this::loadData); // 1
         loadData();
+
+        MenuItem searchItem = toolbar.getMenu().findItem(R.id.search); // 1
+        SearchView searchView = (SearchView) searchItem.getActionView(); // 2
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() { // 3
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.filter(newText); // 4
+                return true;
+            }
+        });
     }
 
     private void onSortClicked() {
@@ -86,8 +104,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSuccess(List<Blog> blogList) {
                 runOnUiThread(() -> {
-                    refreshLayout.setRefreshing(false); // 3
-                    adapter.submitList(blogList);
+                    refreshLayout.setRefreshing(false);
+                    adapter.setData(blogList); // 1
+                    sortData();
+                    // adapter.submitList(blogList);
                 });
             }
 

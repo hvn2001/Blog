@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,6 +23,23 @@ import java.util.Collections;
 import java.util.List;
 
 public class MainAdapter extends ListAdapter<Blog, MainAdapter.MainViewHolder> { //1
+
+    private List<Blog> originalList = new ArrayList<>();
+
+    public void setData(@Nullable List<Blog> list) {
+        originalList = list;
+        super.submitList(list);
+    }
+
+    public void filter(String query) {
+        List<Blog> filteredList = new ArrayList<>();
+        for (Blog blog : originalList) { // 1
+            if (blog.getTitle().toLowerCase().contains(query.toLowerCase())) { // 2
+                filteredList.add(blog);
+            }
+        }
+        submitList(filteredList); // 3
+    }
 
     public interface OnItemClickListener { // 1
         void onItemClicked(Blog blog);
