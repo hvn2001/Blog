@@ -5,6 +5,7 @@ import android.util.Log;
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -60,5 +61,27 @@ public class BlogHttpClient {
             }
             callback.onError();
         });
+    }
+
+    public List<Blog> loadBlogArticles() {
+        Request request = new Request.Builder()
+                .get()
+                .url(BLOG_ARTICLES_URL)
+                .build();
+
+        try {
+            Response response = client.newCall(request).execute();
+            ResponseBody responseBody = response.body();
+            if (responseBody != null) {
+                String json = responseBody.string();
+                BlogData blogData = gson.fromJson(json, BlogData.class);
+                if (blogData != null) {
+                    return blogData.getData();
+                }
+            }
+        } catch (IOException e) {
+            Log.e("BlogHttpClient", "Error loading blog articles", e);
+        }
+        return null;
     }
 }
