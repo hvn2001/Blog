@@ -1,5 +1,7 @@
 package com.example.blog;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
@@ -33,6 +35,7 @@ public class BlogDetailsActivity extends AppCompatActivity {
     private ImageView imageAvatar;
     private ImageView imageMain;
     private ProgressBar progressBar;
+    private static final String EXTRAS_BLOG = "EXTRAS_BLOG";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,7 +57,17 @@ public class BlogDetailsActivity extends AppCompatActivity {
         // Image with the back icon
         ImageView imageBack = findViewById(R.id.imageBack);
         imageBack.setOnClickListener(v -> finish());
-        loadData();
+        // loadData();
+
+        showData(getIntent() // 1
+                .getExtras() // 2
+                .getParcelable(EXTRAS_BLOG)); // 3
+    }
+
+    public static void startBlogDetailsActivity(Activity activity, Blog blog) {
+        Intent intent = new Intent(activity, BlogDetailsActivity.class);
+        intent.putExtra(EXTRAS_BLOG, blog);
+        activity.startActivity(intent);
     }
 
     /**
@@ -98,14 +111,15 @@ public class BlogDetailsActivity extends AppCompatActivity {
         textViews.setText(String.format("(%d views)", blog.getViews()));
         textDescription.setText(Html.fromHtml(blog.getDescription()));
         ratingBar.setRating(blog.getRating());
+        ratingBar.setVisibility(View.VISIBLE);
 
         Glide.with(this)
-                .load(blog.getImage())
+                .load(blog.getImageURL())
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .into(imageMain);
 
         Glide.with(this)
-                .load(blog.getAuthor().getAvatar())
+                .load(blog.getAuthor().getAvatarURL())
                 .transform(new CircleCrop())
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .into(imageAvatar);
