@@ -14,6 +14,8 @@ import com.example.blog.adapter.MainAdapter;
 import com.example.blog.http.Blog;
 import com.example.blog.http.BlogArticlesCallback;
 import com.example.blog.http.BlogHttpClient;
+import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
@@ -23,10 +25,22 @@ public class MainActivity extends AppCompatActivity {
     private MainAdapter adapter;
     private SwipeRefreshLayout refreshLayout;
 
+    private static final int SORT_TITLE = 0; // 1
+    private static final int SORT_DATE = 1; // 1
+
+    private int currentSort = SORT_DATE; // 2
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        MaterialToolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setOnMenuItemClickListener(item -> {
+            if (item.getItemId() == R.id.sort) {
+                onSortClicked(); // implemented later in this lesson
+            }
+            return false;
+        });
         // startActivity(new Intent(this, BlogDetailsActivity.class));
         adapter = new MainAdapter(blog ->
                 BlogDetailsActivity.startBlogDetailsActivity(this, blog));
@@ -38,6 +52,25 @@ public class MainActivity extends AppCompatActivity {
         refreshLayout = findViewById(R.id.refresh);
         refreshLayout.setOnRefreshListener(this::loadData); // 1
         loadData();
+    }
+
+    private void onSortClicked() {
+        String[] items = {"Title", "Date"};
+        new MaterialAlertDialogBuilder(this)
+                .setTitle("Sort order")
+                .setSingleChoiceItems(items, currentSort, (dialog, which) -> {
+                    dialog.dismiss();
+                    currentSort = which;
+                    sortData();
+                }).show();
+    }
+
+    private void sortData() {
+        if (currentSort == SORT_TITLE) {
+            adapter.sortByTitle();
+        } else if (currentSort == SORT_DATE) {
+            adapter.sortByDate();
+        }
     }
 
     /**

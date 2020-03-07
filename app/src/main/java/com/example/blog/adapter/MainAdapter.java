@@ -17,6 +17,10 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.example.blog.R;
 import com.example.blog.http.Blog;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class MainAdapter extends ListAdapter<Blog, MainAdapter.MainViewHolder> { //1
 
     public interface OnItemClickListener { // 1
@@ -47,6 +51,20 @@ public class MainAdapter extends ListAdapter<Blog, MainAdapter.MainViewHolder> {
                     return oldData.equals(newData);
                 }
             };
+
+    public void sortByTitle() {
+        List<Blog> currentList = new ArrayList<>(getCurrentList()); // 1
+        Collections.sort(currentList,
+                (o1, o2) -> o1.getTitle().compareTo(o2.getTitle())); // 2
+        submitList(currentList); // 3
+    }
+
+    public void sortByDate() {
+        List<Blog> currentList = new ArrayList<>(getCurrentList());
+        Collections.sort(currentList,
+                (o1, o2) -> o2.getDateMillis().compareTo(o1.getDateMillis()));
+        submitList(currentList);
+    }
 
     /**
      * this method is called only a certain amount of times when recycler view needs a new view holder object
