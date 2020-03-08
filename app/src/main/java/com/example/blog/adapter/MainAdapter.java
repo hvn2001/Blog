@@ -61,7 +61,7 @@ public class MainAdapter extends ListAdapter<Blog, MainAdapter.MainViewHolder> {
                 @Override
                 public boolean areItemsTheSame(@NonNull Blog oldData,
                                                @NonNull Blog newData) {
-                    return oldData.getId().equals(newData.getId());
+                    return oldData.getId() == newData.getId();
                 }
 
                 @Override
@@ -71,7 +71,7 @@ public class MainAdapter extends ListAdapter<Blog, MainAdapter.MainViewHolder> {
             };
 
     public void sortByTitle() {
-        List<Blog> currentList = new ArrayList<>(originalList); // 1
+        List<Blog> currentList = new ArrayList<>(originalList); // 1 why not getCurrentList ?
         Collections.sort(currentList,
                 (o1, o2) -> o1.getTitle().compareTo(o2.getTitle())); // 2
         submitList(currentList); // 3

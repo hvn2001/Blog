@@ -8,6 +8,11 @@ public class Author implements Parcelable {
     private String name;
     private String avatar;
 
+    public Author(String name, String avatar) { // Because @Embedded will auto generate
+        this.name = name;
+        this.avatar = avatar;
+    }
+
     protected Author(Parcel in) {  // 1
         name = in.readString();
         avatar = in.readString();
