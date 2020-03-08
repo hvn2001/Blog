@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
      * we can use the setRefreshing(true) method (2) and
      * when the data loading has been completed, we can use the setRefreshing(false) method (3) (4).
      */
-    private void loadData() {
+    /*private void loadData() {
         refreshLayout.setRefreshing(true); // 2
         BlogHttpClient.INSTANCE.loadBlogArticles(new BlogArticlesCallback() {
             @Override
@@ -158,11 +158,11 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         });
-    }
+    }*/
 
     private void showErrorSnackbar() {
         View rootView = findViewById(android.R.id.content);
-        Snackbar snackbar = Snackbar.make(rootView, "Error during loading blog articles", Snackbar.LENGTH_INDEFINITE);
+        Snackbar snackbar = Snackbar.make(rootView, "Error during loading blog articles list", Snackbar.LENGTH_INDEFINITE);
         snackbar.setActionTextColor(getResources().getColor(R.color.orange500));
         snackbar.setAction("Retry", v -> {
             // loadData();
