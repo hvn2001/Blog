@@ -71,14 +71,14 @@ public class MainAdapter extends ListAdapter<Blog, MainAdapter.MainViewHolder> {
             };
 
     public void sortByTitle() {
-        List<Blog> currentList = new ArrayList<>(getCurrentList()); // 1
+        List<Blog> currentList = new ArrayList<>(originalList); // 1
         Collections.sort(currentList,
                 (o1, o2) -> o1.getTitle().compareTo(o2.getTitle())); // 2
         submitList(currentList); // 3
     }
 
     public void sortByDate() {
-        List<Blog> currentList = new ArrayList<>(getCurrentList());
+        List<Blog> currentList = new ArrayList<>(originalList);
         Collections.sort(currentList,
                 (o1, o2) -> o2.getDateMillis().compareTo(o1.getDateMillis()));
         submitList(currentList);
